@@ -1,0 +1,60 @@
+import { Button, VerticalBox, LineEdit, HorizontalBox, GroupBox } from "std-widgets.slint";
+
+export component AppWindow inherits Window {
+    
+    VerticalBox {
+        padding: 20px;
+        Text {
+            font-size: 24px;
+            horizontal-alignment: center;
+            text: "GKI Calculator";
+        }
+        GroupBox {
+            title: "Glucose Reading:";
+            HorizontalLayout {
+                spacing: 10px;
+                LineEdit {
+                    width: 200px;
+                    placeholder-text: "83.0";
+                }
+                Text {
+                    text: "mg/dL";
+                    vertical-alignment: center;
+                }
+            }
+        }
+        
+        
+        GroupBox {
+            title: "Ketone Reading:";
+            HorizontalLayout {
+                spacing: 10px;
+                LineEdit {
+                    width: 200px;
+                    placeholder-text: "1.8";
+                }
+                Text {
+                    vertical-alignment: center;
+                    text: "mmol/L";
+                }
+            }
+        }
+
+        GroupBox {
+            
+            HorizontalLayout {
+                spacing: 10px;
+                Button {
+                    width: 100px;
+                    text: "Calculate GKI";
+                    
+                }
+                Text {
+                    vertical-alignment: center;
+                }
+            }
+        }
+        
+        
+    }
+}

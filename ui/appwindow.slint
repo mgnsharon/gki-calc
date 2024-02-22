@@ -1,6 +1,11 @@
-import { Button, VerticalBox, LineEdit, HorizontalBox, GroupBox } from "std-widgets.slint";
+import { Button, VerticalBox, LineEdit, HorizontalBox, GroupBox, ComboBox } from "std-widgets.slint";
 
 export component AppWindow inherits Window {
+    in-out property <string> g_reading;
+    in-out property <string> unit_type: "mg/dL";
+    in-out property <string> k_reading;
+    in property <string> gki_result;
+    callback calculate_gki();
     
     VerticalBox {
         padding: 20px;
@@ -16,10 +21,17 @@ export component AppWindow inherits Window {
                 LineEdit {
                     width: 200px;
                     placeholder-text: "83.0";
+                    edited => {
+                        root.g_reading = self.text
+                    }
                 }
-                Text {
-                    text: "mg/dL";
-                    vertical-alignment: center;
+                ComboBox {
+                    model: ["mg/dL", "mmol/L"];
+                    current-value: "mg/dL";
+                    width: 100px;
+                    selected => {
+                        root.unit_type = self.current-value
+                    }
                 }
             }
         }
@@ -32,6 +44,9 @@ export component AppWindow inherits Window {
                 LineEdit {
                     width: 200px;
                     placeholder-text: "1.8";
+                    edited => {
+                        root.k_reading = self.text
+                    }
                 }
                 Text {
                     vertical-alignment: center;
@@ -45,12 +60,19 @@ export component AppWindow inherits Window {
             HorizontalLayout {
                 spacing: 10px;
                 Button {
-                    width: 100px;
+                    width: 200px;
+                    height: 60px;
                     text: "Calculate GKI";
-                    
+                    primary: true;
+                    clicked =>  {
+                        root.calculate_gki()
+                    }
                 }
                 Text {
                     vertical-alignment: center;
+                    horizontal-alignment: center;
+                    font-size: 24px;
+                    text: root.gki_result;
                 }
             }
         }
